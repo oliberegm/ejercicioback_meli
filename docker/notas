@@ -1,0 +1,20 @@
+#EMPAQUETADO DE LA APP
+FROM maven:3.8-openjdk-11 as build
+MAINTAINER Oliber Garcia "oliber.garcia@gmail.com"
+COPY src /usr/src/app/src
+COPY pom.xml /usr/src/app
+RUN mvn -f /usr/src/app/pom.xml clean package
+
+#LANZANDO LA APP
+FROM adoptopenjdk/openjdk11:latest
+ARG JAR_FILE=/usr/src/app/target/*.jar
+COPY ${JAR_FILE} /usr/local/lib/meli.jar
+EXPOSE 8080
+ENTRYPOINT ["java","-jar","/usr/local/lib/meli.jar"]
+
+ //limpiar todo
+docker system prune -a
+
+mcug2micro:ejercicioback_meli oegarcia$ heroku create
+Creating app... done, ⬢ radiant-island-64532
+https://radiant-island-64532.herokuapp.com/ | https://git.heroku.com/radiant-island-64532.git

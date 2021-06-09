@@ -1,10 +1,37 @@
 version: '3'
 services:
+  redisdb:
+    image: redis
+    hostname: redis
+    restart: "no"
+    container_name: redisdb
+    ports:
+      - "6379:6379"
+    environment:
+      - PUID=1000
+  mongodb:
+    image: mongo
+    hostname: mongodb
+    container_name: mongodb
+    restart: "no"
+    ports:
+      - "27017:27017"
+    environment:
+      PUID: 1000
+      MONGO_INITDB_DATABASE: melidb
   meliapp:
     image: meli:1.0.1
     hostname: meliapp
     container_name: meliapp
     restart: "no"
+    depends_on:
+      mongodb:
+        condition: service_started
+      redisdb:
+        condition: service_started
+    links:
+      - redisdb
+      - mongodb
     ports:
       - "8015:8080"
     environment:
