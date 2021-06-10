@@ -4,11 +4,11 @@ services:
   - docker
 
 before_install:
-  - docker build -t meliapp/1.0.1 .
+  - docker build -t oliberegm/meliapp .
 
 script:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  - docker push meliapp/1.0.1
+  - docker push oliberegm/meliapp
 
 after_success:
   - echo "BIEN!!!"
