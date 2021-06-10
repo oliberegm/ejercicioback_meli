@@ -9,6 +9,6 @@ RUN mvn -B -s /usr/share/maven/ref/settings-docker.xml package
 FROM adoptopenjdk/openjdk11:latest
 EXPOSE 8080
 RUN mkdir /app
-COPY target/*.jar /app/meliapp.jar
+RUN cp target/*.jar /app/meliapp.jar
 WORKDIR /app
 ENTRYPOINT ["java","-jar","/app/meliapp.jar"]
