@@ -6,6 +6,9 @@ services:
 before_install:
   - docker build -t meliapp/1.0.1 .
 
-after_success:
+script:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   - docker push meliapp/1.0.1
+
+after_success:
+  - echo "BIEN!!!"
