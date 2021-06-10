@@ -25,7 +25,11 @@ archivo de properties ubicado en src/main/java/appication.propertiers.
 Indicamos el codigo para obtner informacion de exchange
 - api.fixer.code=37ce7e9545ef3c90f4b29040c0de45a8
 
-## Configuración Docker
-Se agregan los archivos para poder crear el contenedor Dockerfile y en el folder docker estan dos archivos docker-compose, 
-en el cual estan las configuraciones para poder iniciar la app sola o de manera integrada con las
-db.
+## Ejecución con  Docker
+Realizar los siguientes pasos:
+- git clone https://github.com/oliberegm/ejercicioback_meli.git
+- cd ejercicioback_meli
+- docker-compose up --build
+- ingresar en el navegador http://localhost/swagger-ui.html
+
+###EXITOS!!!!!

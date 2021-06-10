@@ -1,0 +1,73 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "essential": true,
+      "name": "redisdb",
+      "image": "redis",
+      "memory": 200
+    },
+    {
+      "essential": true,
+      "name": "mongodb",
+      "image": "mongo",
+      "memory": 200,
+      "environment": [
+        {
+          "name": "MONGO_INITDB_DATABASE",
+          "value": "melidb"
+        }
+      ]
+    },
+    {
+      "essential": false,
+      "name": "meliapp",
+      "image": "oliberegm/meliapp",
+      "memory": 400,
+      "links": [
+        "redisdb",
+        "mongodb"
+      ],
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 80,
+          "protocol": "tcp"
+        }
+      ],
+      "environment": [
+        {
+          "name": "SPRING_DATA_MONGODB_DATABASE",
+          "value": "melidb"
+        },
+        {
+          "name": "SPRING_DATA_MONGODB_PORT",
+          "value": "27017"
+        },
+        {
+          "name": "SPRING_DATA_MONGODB_HOST",
+          "value": "mongodb"
+        },
+        {
+          "name": "SPRING_REDIS_HOST",
+          "value": "redisdb"
+        },
+        {
+          "name": "SPRING_REDIS_PORT",
+          "value": "6379"
+        },
+        {
+          "name": "API_FIXER_CODE",
+          "value": "37ce7e9545ef3c90f4b29040c0de45a8"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/tomcat-container-logs",
+          "awslogs-region": "us-east-2"
+        }
+      }
+    }
+  ]
+}
